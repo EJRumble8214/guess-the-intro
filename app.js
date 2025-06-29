@@ -1,7 +1,14 @@
 const songs = [
   { file: "song1.mp3", answer: "Let It Go – Frozen" },
   { file: "song2.mp3", answer: "You've Got a Friend in Me – Toy Story" },
-  { file: "song3.mp3", answer: "Circle of Life – The Lion King" }
+  { file: "song3.mp3", answer: "Circle of Life – The Lion King" },
+  { file: "song4.mp3", answer: "Stop - Spice Girls" },
+  { file: "song5.mp3", answer: "Spice Up Your Life - Spice Girls" },
+  { file: "song6.mp3", answer: "2 Become 1 - Spice Girls" },
+  { file: "song7.mp3", answer: "Under The Sea - The Little Mermaid" },
+  { file: "song8.mp3", answer: "I Just Can't Wait To Be King - The Lion King" },
+  { file: "song9.mp3", answer: "APT. - ROSÉ and Bruno Mars" },
+  { file: "song10.mp3", answer: "Texas Hold 'Em - Beyoncé" }
 ];
 
 let shuffledSongs = [];
@@ -61,8 +68,6 @@ homeBtn.onclick = () => {
   gameScreen.style.display = "none";
   startBtn.style.display = "inline-block";
 };
-
-
 homeBtn.onclick = () => {
   gameScreen.style.display = "none";
   startBtn.style.display = "inline-block";
