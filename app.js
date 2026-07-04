@@ -9,6 +9,15 @@ const songs = [
   { file: "song8.mp3", answer: "I Just Can't Wait To Be King - The Lion King" },
   { file: "song9.mp3", answer: "APT. - ROSÉ and Bruno Mars" },
   { file: "song10.mp3", answer: "Texas Hold 'Em - Beyoncé" }
+  { file: "song11.wav", answer: "Watermelon Sugar - Harry Styles" }
+  { file: "song12.wav", answer: "YMCA - Village People" }
+  { file: "song13.wav", answer: "Shake It Off - Taylor Swift" }
+  { file: "song14.wav", answer: "Zoo - Shakira" }
+  { file: "song15.wav", answer: "Golden - K-Pop Demon Hunters" }
+  { file: "song16.wav", answer: "Pink Pony Club - Chappell Roan" }
+  { file: "song17.wav", answer: "Lush Life - Zara Larsson" }
+  { file: "song18.wav", answer: "Cruel Summer - Taylor Swift" }
+  { file: "song19.wav", answer: "The Fate of Ophelia - Taylor Swift" }
 ];
 
 let shuffledSongs = [];
