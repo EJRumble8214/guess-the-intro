@@ -60,7 +60,12 @@ startBtn.onclick = () => {
   gameScreen.style.display = "block";
   currentSong = getNextSong();
   audio.src = currentSong.file;
-  audio.play();
+  
+  // Handle the play promise to prevent errors in modern browsers
+  audio.play().catch(error => {
+    console.log("Audio autoplay prevented by browser. User must interact first.");
+  });
+  
   answerP.textContent = "";
 };
 
@@ -76,4 +81,5 @@ revealBtn.onclick = () => {
 homeBtn.onclick = () => {
   gameScreen.style.display = "none";
   startBtn.style.display = "inline-block";
+  audio.pause(); // Pause music when returning home
 };
