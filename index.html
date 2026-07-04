@@ -1,23 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Guess the Intro!</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Guessing Game</title>
   <style>
-    body { text-align:center; font-family:Arial; padding:50px; }
-    button { margin:10px; padding:10px 20px; font-size:16px; }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      background-color: #f0f8ff;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #gameScreen {
+      display: none; /* Hidden until start button is clicked */
+      margin-top: 20px;
+    }
+    #answer {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      margin-top: 20px;
+      min-height: 25px;
+    }
   </style>
 </head>
 <body>
-  <h1>🎵 Guess the Intro!</h1>
-  <button id="startBtn">Play Intro</button>
-  <div id="gameScreen" style="display:none;">
-    <audio id="audio" controls></audio><br>
-    <button id="replayBtn">Replay</button>
-    <button id="revealBtn">Reveal Answer</button><br>
-    <p id="answer" style="font-weight:bold;"></p>
-    <button id="homeBtn">Back to Home</button>
+
+  <h1>🎵 Music Guessing Game 🎵</h1>
+  
+  <button id="startBtn">Start Game</button>
+
+  <div id="gameScreen">
+    <audio id="audio"></audio>
+    
+    <div>
+      <button id="replayBtn">Replay Song</button>
+      <button id="revealBtn">Reveal Answer</button>
+      <button id="homeBtn">Next / Home</button>
+    </div>
+
+    <p id="answer"></p>
   </div>
-  <script src="app.js"></script>
+
+  <script src="Code.js"></script>
+
 </body>
 </html>
