@@ -1,61 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Music Guessing Game</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 50px;
-      background-color: #f0f8ff;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      margin: 10px;
-      cursor: pointer;
-      border: none;
-      border-radius: 5px;
-      background-color: #007bff;
-      color: white;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    #gameScreen {
-      display: none; /* Hidden until start button is clicked */
-      margin-top: 20px;
-    }
-    #answer {
-      font-size: 20px;
-      font-weight: bold;
-      color: #333;
-      margin-top: 20px;
-      min-height: 25px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Song!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #282c34;
+            color: white;
+            margin-top: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        input[type="file"] {
+            margin: 20px 0;
+            padding: 10px;
+            background: #3a3f4b;
+            border-radius: 5px;
+            border: 1px dashed #61dafb;
+            color: white;
+            cursor: pointer;
+        }
+        button {
+            padding: 15px 25px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #61dafb;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #282c34;
+        }
+        button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+            color: #888;
+        }
+        #answerDisplay {
+            font-size: 24px;
+            margin-top: 30px;
+            font-weight: bold;
+            color: #98c379;
+        }
+        .game-controls {
+            display: none; /* Hidden until songs are loaded */
+        }
+    </style>
 </head>
 <body>
 
-  <h1>🎵 Music Guessing Game 🎵</h1>
-  
-  <button id="startBtn">Start Game</button>
+    <div class="container">
+        <h1>🎵 Dynamic Guess the Song Game! 🎵</h1>
+        <p>Step 1: Upload your renamed song files below. They stay entirely on your computer!</p>
+        
+        <input type="file" id="songUpload" multiple accept="audio/*">
 
-  <div id="gameScreen">
-    <audio id="audio"></audio>
-    
-    <div>
-      <button id="replayBtn">Replay Song</button>
-      <button id="revealBtn">Reveal Answer</button>
-      <button id="homeBtn">Next / Home</button>
+        <div id="gameControls" class="game-controls">
+            <p>Step 2: Play and guess!</p>
+            <button id="playBtn">▶️ Play Random Song</button>
+            <button id="revealBtn" disabled>👀 Reveal Answer</button>
+        </div>
+
+        <div id="answerDisplay"></div>
     </div>
 
-    <p id="answer"></p>
-  </div>
+    <audio id="audioPlayer"></audio>
 
-  <script src="Code.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
