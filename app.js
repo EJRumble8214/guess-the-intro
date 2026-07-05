@@ -1,85 +1,64 @@
-const songs = [
-  { file: "song1.mp3", answer: "Let It Go – Frozen" },
-  { file: "song2.mp3", answer: "You've Got a Friend in Me – Toy Story" },
-  { file: "song3.mp3", answer: "Circle of Life – The Lion King" },
-  { file: "song4.mp3", answer: "Stop - Spice Girls" },
-  { file: "song5.mp3", answer: "Spice Up Your Life - Spice Girls" },
-  { file: "song6.mp3", answer: "2 Become 1 - Spice Girls" },
-  { file: "song7.mp3", answer: "Under The Sea - The Little Mermaid" },
-  { file: "song8.mp3", answer: "I Just Can't Wait To Be King - The Lion King" },
-  { file: "song9.mp3", answer: "APT. - ROSÉ and Bruno Mars" },
-  { file: "song10.mp3", answer: "Texas Hold 'Em - Beyoncé" },
-  { file: "song11.wav", answer: "Watermelon Sugar - Harry Styles" },
-  { file: "song12.wav", answer: "YMCA - Village People" },
-  { file: "song13.wav", answer: "Shake It Off - Taylor Swift" },
-  { file: "song14.wav", answer: "Zoo - Shakira" },
-  { file: "song15.wav", answer: "Golden - K-Pop Demon Hunters" },
-  { file: "song16.wav", answer: "Pink Pony Club - Chappell Roan" },
-  { file: "song17.wav", answer: "Lush Life - Zara Larsson" },
-  { file: "song18.wav", answer: "Cruel Summer - Taylor Swift" },
-  { file: "song19.wav", answer: "The Fate of Ophelia - Taylor Swift" }
-];
+// Array to hold the uploaded file objects
+let songFiles = [];
+let currentFile = null;
 
-let shuffledSongs = [];
-let currentIndex = 0;
-
-function shuffleSongs() {
-  shuffledSongs = [...songs];
-  for (let i = shuffledSongs.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffledSongs[i], shuffledSongs[j]] = [shuffledSongs[j], shuffledSongs[i]];
-  }
-  currentIndex = 0;
-}
-
-function getNextSong() {
-  if (shuffledSongs.length === 0 || currentIndex >= shuffledSongs.length) {
-    shuffleSongs();
-  }
-  const song = shuffledSongs[currentIndex];
-  currentIndex++;
-  return song;
-}
-
-// DOM references
-const startBtn = document.getElementById("startBtn");
-const gameScreen = document.getElementById("gameScreen");
-const audio = document.getElementById("audio");
-const replayBtn = document.getElementById("replayBtn");
+// Grab HTML elements
+const songUpload = document.getElementById("songUpload");
+const gameControls = document.getElementById("gameControls");
+const playBtn = document.getElementById("playBtn");
 const revealBtn = document.getElementById("revealBtn");
-const answerP = document.getElementById("answer");
-const homeBtn = document.getElementById("homeBtn");
+const audioPlayer = document.getElementById("audioPlayer");
+const answerDisplay = document.getElementById("answerDisplay");
 
-let currentSong = null;
+// Listen for when the user selects files
+songUpload.addEventListener("change", (event) => {
+    // Convert the file list into a standard JavaScript array
+    songFiles = Array.from(event.target.files);
 
-// On first load, shuffle the list
-shuffleSongs();
+    if (songFiles.length > 0) {
+        // Show the play/reveal buttons once files are loaded
+        gameControls.style.display = "block";
+        answerDisplay.innerText = `✅ Loaded ${songFiles.length} songs successfully! Click play to start.`;
+    } else {
+        gameControls.style.display = "none";
+        answerDisplay.innerText = "";
+    }
+});
 
-startBtn.onclick = () => {
-  startBtn.style.display = "none";
-  gameScreen.style.display = "block";
-  currentSong = getNextSong();
-  audio.src = currentSong.file;
-  
-  // Handle the play promise to prevent errors in modern browsers
-  audio.play().catch(error => {
-    console.log("Audio autoplay prevented by browser. User must interact first.");
-  });
-  
-  answerP.textContent = "";
-};
+// Function to play a random song from the uploaded pool
+playBtn.addEventListener("click", () => {
+    if (songFiles.length === 0) return;
 
-replayBtn.onclick = () => {
-  audio.currentTime = 0;
-  audio.play();
-};
+    // Clear previous answer text
+    answerDisplay.innerText = "🎶 Playing track... Can you guess it?";
 
-revealBtn.onclick = () => {
-  answerP.textContent = currentSong.answer;
-};
+    // Pick a random file object
+    const randomIndex = Math.floor(Math.random() * songFiles.length);
+    currentFile = songFiles[randomIndex];
 
-homeBtn.onclick = () => {
-  gameScreen.style.display = "none";
-  startBtn.style.display = "inline-block";
-  audio.pause(); // Pause music when returning home
-};
+    // Create a temporary local URL for the audio file so the browser can play it
+    const fileURL = URL.createObjectURL(currentFile);
+    audioPlayer.src = fileURL;
+    
+    // Play the full audio clip
+    audioPlayer.play();
+
+    // Toggle button states
+    revealBtn.disabled = false;
+    playBtn.disabled = true;
+});
+
+// Function to reveal the song name based on the filename
+revealBtn.addEventListener("click", () => {
+    if (!currentFile) return;
+
+    // Strip the file extension (.mp3, .wav, etc.) to get a clean title
+    const cleanTitle = currentFile.name.replace(/\.[^/.]+$/, "");
+
+    // Display the answer
+    answerDisplay.innerText = `🎉 ANSWER: ${cleanTitle} 🎉`;
+
+    // Reset buttons for the next round
+    revealBtn.disabled = true;
+    playBtn.disabled = false;
+});
